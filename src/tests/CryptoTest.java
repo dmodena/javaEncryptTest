@@ -61,7 +61,7 @@ public class CryptoTest {
         String strXml = pXml.gravar(ps);
         byte[] btXml = strXml.getBytes();       
         
-        String key = "Mary has one cat";
+        String key = "95a8ddaec72d445e";
         File encryptedFile = new File("document.encrypted");
         File decryptedFile = new File("document.decrypted");
          
