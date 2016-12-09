@@ -27,19 +27,87 @@ public class CryptoUtils {
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORMATION = "AES";
     private static final String DEFAULTKEY = "95a8ddaec72d445e";
- 
+    
+    /**
+     * Encrypt from file to file with standard key
+     * @param inputFile Input file
+     * @param outputFile Output file
+     * @throws CryptoException Exception
+     */
+    public static void encrypt(File inputFile, File outputFile) throws CryptoException {
+        doCrypto(Cipher.ENCRYPT_MODE, DEFAULTKEY, inputFile, outputFile);
+    }
+    
+    /**
+     * Encrypt from byte array to file with standard key
+     * @param inputBytes Input byte array
+     * @param outputFile Output file
+     * @throws CryptoException Exception
+     */
+    public static void encrypt(byte[] inputBytes, File outputFile) throws CryptoException {
+        doCrypto(Cipher.ENCRYPT_MODE, DEFAULTKEY, inputBytes, outputFile);
+    }    
+    
+    /**
+     * Encrypt from file to file
+     * @param key Encryption key
+     * @param inputFile Input file
+     * @param outputFile Output file
+     * @throws CryptoException Exception
+     */
     public static void encrypt(String key, File inputFile, File outputFile) throws CryptoException {
         doCrypto(Cipher.ENCRYPT_MODE, key, inputFile, outputFile);
     }
  
+    /**
+     * Encrypt from byte array to file
+     * @param key Encryption key
+     * @param inputBytes Input byte array
+     * @param outputFile Output file
+     * @throws CryptoException 
+     */
     public static void encrypt(String key, byte[] inputBytes, File outputFile) throws CryptoException {
         doCrypto(Cipher.ENCRYPT_MODE, key, inputBytes, outputFile);
     }
     
+    /**
+     * Decrypt from file to file with standard key
+     * @param inputFile Input file
+     * @param outputFile Output file
+     * @throws CryptoException Exception
+     */
+    public static void decrypt(File inputFile, File outputFile) throws CryptoException {
+        doCrypto(Cipher.DECRYPT_MODE, DEFAULTKEY, inputFile, outputFile);
+    }
+    
+    /**
+     * Decrypt from file to byte array with standard key
+     * @param inputFile Input file
+     * @return Output byte array
+     * @throws CryptoException Exception
+     */
+    public static byte[] decrypt(File inputFile) throws CryptoException {
+        return doCrypto(Cipher.DECRYPT_MODE, DEFAULTKEY, inputFile);
+    }
+    
+    /**
+     * Decrypt from file to file
+     * @param key Encryption key
+     * @param inputFile Input file
+     * @param outputFile Output file
+     * @throws CryptoException Exception
+     */
     public static void decrypt(String key, File inputFile, File outputFile) throws CryptoException {
         doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
     }
     
+    /**
+     * Decrypt from file to byte array
+     * @param key Encryption key
+     * @param inputFile Input file
+     * @return Output byte array
+     * @throws CryptoException Exception
+     */
     public static byte[] decrypt(String key, File inputFile) throws CryptoException {
         return doCrypto(Cipher.DECRYPT_MODE, key, inputFile);
     }
