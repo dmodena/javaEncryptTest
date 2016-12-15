@@ -5,13 +5,9 @@
  */
 package xml;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -23,6 +19,8 @@ import javax.xml.bind.Unmarshaller;
  */
 public class ProcessadorJAXB {
     private String arquivo;
+    
+    public ProcessadorJAXB() { }
     
     public ProcessadorJAXB(String arquivo) {
         this.arquivo = arquivo;
@@ -52,6 +50,18 @@ public class ProcessadorJAXB {
             JAXBContext context = JAXBContext.newInstance(c);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             return unmarshaller.unmarshal(file);
+        }
+        catch(JAXBException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    
+    public Object ler(Class c, byte[] inputBytes) {
+        try {            
+            JAXBContext context = JAXBContext.newInstance(c);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            return unmarshaller.unmarshal(new ByteArrayInputStream(inputBytes));
         }
         catch(JAXBException ex) {
             System.out.println(ex);
