@@ -16,7 +16,7 @@ import xml.ProcessadorJAXB;
  *
  * @author Micronos
  */
-public class XmlTest {
+public class AnotherTest {
     public static void main(String[] args) {
         Map<String, Double> notasA1 = new HashMap<>();
         notasA1.put("bd", 9.5);
@@ -50,10 +50,20 @@ public class XmlTest {
         ps.addPessoa(a1);
         ps.addPessoa(a2);
         ps.addPessoa(p1);
-        ps.addPessoa(p2);        
+        ps.addPessoa(p2);
         
-        System.out.println(ps);
-                
-        ProcessadorJAXB.gravar(ps, "teste.xml");
+        // Gravando xml em arquivo
+        ProcessadorJAXB.gravar(ps, "testando.xml");
+        
+        // Lendo arquivo xml
+        Pessoas pa = (Pessoas) ProcessadorJAXB.ler(Pessoas.class, "testando.xml");
+        System.out.println(pa);
+        
+        // Gravando xml em byte array
+        byte[] bytes = ProcessadorJAXB.gravar(ps);
+        
+        // Lendo bytes xml
+        Pessoas pb = (Pessoas) ProcessadorJAXB.ler(Pessoas.class, bytes);
+        System.out.println(pb);
     }
 }

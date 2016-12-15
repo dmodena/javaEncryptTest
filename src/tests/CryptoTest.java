@@ -11,7 +11,6 @@ import entidades.Aluno;
 import entidades.Pessoas;
 import entidades.Professor;
 import java.io.File;
-import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 import xml.ProcessadorJAXB;
@@ -54,12 +53,9 @@ public class CryptoTest {
         ps.addPessoa(a1);
         ps.addPessoa(a2);
         ps.addPessoa(p1);
-        ps.addPessoa(p2);   
+        ps.addPessoa(p2);
         
-        ProcessadorJAXB pXml = new ProcessadorJAXB("testa.xml");
-        
-        String strXml = pXml.gravar(ps);
-        byte[] btXml = strXml.getBytes();       
+        byte[] btXml = ProcessadorJAXB.gravar(ps);
         
         String key = "95a8ddaec72d445e";
         File encryptedFile = new File("document.encrypted");

@@ -17,16 +17,22 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author Micronos
  */
-public class ProcessadorJAXB {
-    private String arquivo;
-    
-    public ProcessadorJAXB() { }
-    
-    public ProcessadorJAXB(String arquivo) {
-        this.arquivo = arquivo;
+public class ProcessadorJAXB {    
+    public static void gravar(Object object, String arquivo) {
+        try {
+            File file = new File(arquivo);
+            JAXBContext context = JAXBContext.newInstance(object.getClass());
+            Marshaller marshaller = context.createMarshaller();
+            
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,true);
+            marshaller.marshal(object, file);
+        }
+        catch(JAXBException ex) {
+            System.out.println(ex);
+        }
     }
     
-    public String gravar(Object object) {
+    public static byte[] gravar(Object object) {
         StringWriter sw = new StringWriter();
         
         try {
@@ -41,10 +47,10 @@ public class ProcessadorJAXB {
             System.out.println(ex);
         }
         
-        return sw.toString();
+        return sw.toString().getBytes();
     }
     
-    public Object ler(Class c) {
+    public static Object ler(Class c, String arquivo) {
         try {
             File file = new File(arquivo);
             JAXBContext context = JAXBContext.newInstance(c);
@@ -57,7 +63,7 @@ public class ProcessadorJAXB {
         return null;
     }
     
-    public Object ler(Class c, byte[] inputBytes) {
+    public static Object ler(Class c, byte[] inputBytes) {
         try {            
             JAXBContext context = JAXBContext.newInstance(c);
             Unmarshaller unmarshaller = context.createUnmarshaller();
